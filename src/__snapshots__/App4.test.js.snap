@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App4 should render correctly 1`] = `
+<div>
+  <h1>
+    Hello World
+  </h1>
+  <button
+    onClick={[Function]}
+  >
+    Call Method
+  </button>
+</div>
+`;

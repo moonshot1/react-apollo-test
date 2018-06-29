@@ -6,50 +6,69 @@ import TestRenderer from 'react-test-renderer';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import Enzyme, { shallow, render, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import toJson from 'enzyme-to-json';
+// React 16 Enzyme adapter
+Enzyme.configure({ adapter: new Adapter() });
+
 
 // The component AND the query need to be exported
+import App3 from './App3';
+
 const QUERY = gql`
-  query HeroFriends($episode: Episode!) {
-    hero(episode: $episode) {
-      name
-    }
-  }
-`;
-
-const HeroAndFriends = ({ episode }) => (
-  <Query query={QUERY} variables={{ episode }}>
-    {({ data, error, loading }) => {
-      if (error) return 'Oops!';
-      if (loading) return 'Patience young grasshopper...';
-      console.log("data obj", data);
-      return (
-        <div>
-          <h1>{data.hero.name}</h1>
-
-        </div>
-      );
-    }}
-  </Query>
-)
+      query HeroFriends($episode: Episode!) {
+        hero(episode: $episode) {
+          name
+        }
+      }
+    `;
 
 const mocks = [
   {
     request: {
       query: QUERY,
       variables: {
-        episode: 'NEWHOPE',
+        episode: 'EMPIRE',
       },
+      fetchPolicy: 'no-cache'
     },
     result: {
-      hero: { name: 'Luke' }
+      data: {
+        hero: { name: 'Luke' }
+      }
     },
   },
 ];
 
-it('renders without error', () => {
-  TestRenderer.create(
+/* it('renders without error', done => {
+  
+  const output = TestRenderer.create(
     <MockedProvider mocks={mocks} addTypename={false}>
-      <HeroAndFriends episode="NEWHOPE" />
-    </MockedProvider>
+      <HeroAndFriends episode="EMPIRE" />
+    </MockedProvider>,
   );
+
+  setTimeout(() => {
+    console.log(output.toJSON());
+    expect(output.toJSON()).toMatchSnapshot();
+    
+    done()
+  }, 1000);
+}); */
+
+it('renders without error', done => {
+
+  const output = shallow(
+    <MockedProvider mocks={mocks} addTypename={false}>
+      <App3
+       />
+    </MockedProvider>,
+  );
+
+  setTimeout(() => {
+    expect(toJson(output)).toMatchSnapshot();
+
+    done()
+  }, 2000);
 });
