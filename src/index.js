@@ -5,7 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-boost';
 
 import './index.css';
-import App1 from './App6';
+import { QueryAPI } from './App7';
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: 'https://mpjk0plp9.lp.gql.zone/graphql' }),
@@ -14,7 +14,7 @@ const client = new ApolloClient({
 
 const AppWithProvider = () => (
   <ApolloProvider client={client}>
-    <App1 />
+    <QueryAPI episode="EMPIRE" />
   </ApolloProvider>
 );
 
