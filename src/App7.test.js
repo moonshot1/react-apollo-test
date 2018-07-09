@@ -35,7 +35,7 @@ const mocks = [
   },
 ];
 
-describe('Component', () => {
+/* describe('Component', () => {
 
   let output;
   const methodToCall = jest.spyOn(App7.prototype, 'methodToCall');
@@ -86,6 +86,27 @@ describe('QueryAPI', () => {
     await wait(0);
     const tree = output2.root.findByType("h1");
     expect(tree.children).toContain('Luke');
+  });
+
+})  */
+
+describe('QueryAPI', () => {
+  let wrap;
+
+  beforeEach( () => {
+    wrap = shallow(<MockedProvider mocks={mocks} addTypename={false}>
+                      <QueryAPI episode='EMPIRE' />
+                    </MockedProvider>).dive();
+  })
+
+  it('Should contain the text Luke', async () => {
+    await wait(0);
+    console.log(wrap.html());
+  });
+
+  it('Should contain the text Luke', async () => {
+    await wait(0);
+    console.log("abc", wrap.contains(<div />));
   });
 
 }) 

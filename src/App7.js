@@ -44,6 +44,7 @@ export class App7 extends Component {
     return (
       <div>
         <h1>{this.props.name}</h1>
+        <h1 className="abc">{this.props.name}</h1>
         <Button clickMethod={this.methodToCall} name="button" />
       </div>
     )
